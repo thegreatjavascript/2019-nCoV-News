@@ -106,6 +106,9 @@ export default {
             text-align: right;
             font-size: 1vw;
         }
+        img {
+            width: 100%;
+        }
     }
 }
 
