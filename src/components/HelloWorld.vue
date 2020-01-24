@@ -3,15 +3,23 @@
         <a class="title" :href="link" target="_blanket"
             >2019-nCoV疫情实时播报🅥</a
         >
-        <p class="subtitle">
-            数据来自
+        <div class="subtitle">
+            <strong>请广传！</strong>
             <a
-                v-on:click="onClick"
-                href="https://t.me/nCoV2019"
+                href="https://github.com/thegreatjavascript/2019-nCoV-News"
                 target="_blanket"
-                >Telegram Channel</a
-            >
-        </p>
+                ><img src="~@/assets/github.svg" alt="github"
+            /></a>
+            <p>
+                数据来自
+                <a
+                    v-on:click="onClick"
+                    href="https://t.me/nCoV2019"
+                    target="_blanket"
+                    >Telegram Channel</a
+                >
+            </p>
+        </div>
         <img
             class="loading"
             v-if="loading"
@@ -81,7 +89,6 @@ export default {
     font-size: 1.2vw;
     .loading {
         margin: auto;
-        display: block;
         margin-top: 10vw;
     }
     .title {
@@ -93,8 +100,21 @@ export default {
         margin-bottom: 3vw;
     }
     .subtitle {
-        text-align: right;
+        width: 100%;
         margin-bottom: 1vw;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        > a {
+            margin-right: 1vw;
+            height: 25px;
+            img {
+                width: 25px;
+            }
+        }
+        p {
+            text-align: right;
+        }
     }
     .card {
         margin: 0.7vw 0;
@@ -117,6 +137,9 @@ export default {
             font-size: 6vw;
             margin-top: 4vw;
         }
+        .subtitle {
+            justify-content: center;
+        }
         .card {
             padding: 3vw 5vw;
             margin: 3vw 0;
@@ -136,5 +159,6 @@ a {
 
 .card img {
     width: 100%;
+    display: block;
 }
 </style>
