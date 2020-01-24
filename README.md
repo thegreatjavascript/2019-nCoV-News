@@ -6,8 +6,10 @@
 
 数据来自：Telegram[同名频道](https://t.me/nCoV2019)；[RSS源](https://rsshub.app/telegram/channel/nCoV2019)
 
-
-
-![previews](./previews/1.png)
+**项目预览：（Mobile）**
 
 ![previews](./previews/2.png)
+
+**同名Telegram频道长这样：**
+
+![3](./previews/3.png)
