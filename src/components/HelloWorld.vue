@@ -18,10 +18,14 @@
             src="~@/assets/loading.svg"
             alt="loading"
         />
-        <div v-else class="card" v-for="item in data" :key="item.id">
-            <div v-html="removeBR(item.content)"></div>
-            <p class="date">{{ new Date(item.pubDate).toLocaleString() }}</p>
-        </div>
+        <template v-else v-for="item in data">
+            <div class="card" v-if="item.title !== 'pinned'" :key="item.id">
+                <div v-html="removeBR(item.content)"></div>
+                <p class="date">
+                    {{ new Date(item.pubDate).toLocaleString() }}
+                </p>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -59,9 +63,6 @@ export default {
                 return res.json();
             })
             .then(res => {
-                if (res.items[0].title === 'pinned') {
-                    res.items = res.items.slice(1);
-                }
                 this.title = res.title;
                 this.link = res.link;
                 this.data = res.items;
