@@ -59,8 +59,8 @@ export default {
                 return res.json();
             })
             .then(res => {
-                if (res[0].title === 'pinned') {
-                    res = res.slice(1);
+                if (res.items[0].title === 'pinned') {
+                    res.items = res.items.slice(1);
                 }
                 this.title = res.title;
                 this.link = res.link;
