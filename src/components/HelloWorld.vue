@@ -106,9 +106,6 @@ export default {
             text-align: right;
             font-size: 1vw;
         }
-        img {
-            width: 100%;
-        }
     }
 }
 
@@ -135,5 +132,9 @@ export default {
 a {
     text-decoration: none;
     color: #de335e;
+}
+
+.card img {
+    width: 100%;
 }
 </style>
