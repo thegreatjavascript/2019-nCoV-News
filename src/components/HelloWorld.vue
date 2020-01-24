@@ -88,8 +88,8 @@ export default {
     color: #000000;
     font-size: 1.2vw;
     .loading {
-        margin: auto;
         margin-top: 10vw;
+        margin-left: calc(50% - 25px);
     }
     .title {
         text-align: center;
