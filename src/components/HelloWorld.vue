@@ -124,7 +124,6 @@ export default {
         border-radius: 10px;
         .date {
             text-align: right;
-            font-size: 1vw;
         }
     }
 }
