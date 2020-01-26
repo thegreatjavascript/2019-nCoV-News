@@ -59,7 +59,6 @@ export default {
             return html;
         },
         getTime(time) {
-            console.log(time);
             return moment(time)
                 .utc(8)
                 .format('YYYY-MM-DD HH:mm:ss');
