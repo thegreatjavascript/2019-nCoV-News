@@ -55,8 +55,6 @@
 import fetch from 'node-fetch';
 import { isMobile } from '../util.js';
 const moment = require('moment');
-let Parser = require('rss-parser');
-let parser = new Parser();
 
 export default {
     name: 'HelloWorld',
@@ -93,34 +91,21 @@ export default {
             alert('链接需要翻墙才能访问！');
         },
         getData() {
-            parser
-                .parseURL('https://ncov-rss.qgis.me/telegram/channel/nCoV2019')
+            // let api = 'https://api2019ncovnews.herokuapp.com/api';
+            let api = 'http://107.174.221.109:9919/api';
+            if (process.env.NODE_ENV !== 'production') {
+                api = 'http://localhost:9919/api';
+            }
+            fetch(api)
                 .then(res => {
-                    console.log(res);
+                    return res.json();
+                })
+                .then(res => {
                     this.title = res.title;
                     this.link = res.link;
                     this.data = res.items;
                     this.loading = false;
-                })
-                .catch(err => {
-                    console.log('something wrong', err);
                 });
-
-            // // let api = 'https://api2019ncovnews.herokuapp.com/api';
-            // let api = 'http://107.174.221.109:9919/api';
-            // if (process.env.NODE_ENV !== 'production') {
-            //     api = 'http://localhost:9919/api';
-            // }
-            // fetch(api)
-            //     .then(res => {
-            //         return res.json();
-            //     })
-            //     .then(res => {
-            //         this.title = res.title;
-            //         this.link = res.link;
-            //         this.data = res.items;
-            //         this.loading = false;
-            //     });
         },
     },
     created() {
