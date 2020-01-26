@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "moment": "^2.24.0",
     "node-fetch": "^2.6.0",
     "register-service-worker": "^1.6.2",
     "rss-parser": "^3.7.3",

@@ -30,7 +30,7 @@
             <div class="card" v-if="item.title !== 'pinned'" :key="item.id">
                 <div v-html="removeBR(item.content)"></div>
                 <p class="date">
-                    {{ new Date(item.pubDate).toLocaleString() }}
+                    {{ getTime(item.pubDate) }}
                 </p>
             </div>
         </template>
@@ -39,6 +39,7 @@
 
 <script>
 import fetch from 'node-fetch';
+const moment = require('moment');
 
 export default {
     name: 'HelloWorld',
@@ -57,25 +58,41 @@ export default {
             }
             return html;
         },
+        getTime(time) {
+            console.log(time);
+            return moment(time)
+                .utc(8)
+                .format('YYYY-MM-DD HH:mm:ss');
+        },
         onClick(e) {
             alert('链接需要翻墙才能访问！');
         },
+        getData() {
+            let api = 'https://api2019ncovnews.herokuapp.com/api';
+            if (process.env.NODE_ENV !== 'production') {
+                api = 'http://localhost:9919/api';
+            }
+            fetch(api)
+                .then(res => {
+                    return res.json();
+                })
+                .then(res => {
+                    this.title = res.title;
+                    this.link = res.link;
+                    this.data = res.items;
+                    this.loading = false;
+                });
+        },
     },
     created() {
-        let api = 'https://api2019ncovnews.herokuapp.com/api';
-        if (process.env.NODE_ENV !== 'production') {
-            api = 'http://localhost:9919/api';
-        }
-        fetch(api)
-            .then(res => {
-                return res.json();
-            })
-            .then(res => {
-                this.title = res.title;
-                this.link = res.link;
-                this.data = res.items;
-                this.loading = false;
-            });
+        this.getData();
+        // call api every five minutes.
+        this.timer = setInterval(() => {
+            this.getData();
+        }, 300000);
+    },
+    beforeDestroy() {
+        clearInterval(this.timer);
     },
 };
 </script>
