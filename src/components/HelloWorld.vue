@@ -91,7 +91,8 @@ export default {
             alert('链接需要翻墙才能访问！');
         },
         getData() {
-            let api = 'https://api2019ncovnews.herokuapp.com/api';
+            // let api = 'https://api2019ncovnews.herokuapp.com/api';
+            let api = 'http://107.174.221.109:9919/api';
             if (process.env.NODE_ENV !== 'production') {
                 api = 'http://localhost:9919/api';
             }
