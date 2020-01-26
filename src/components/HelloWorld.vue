@@ -3,8 +3,22 @@
         <a class="title" :href="link" target="_blanket"
             >2019-nCoV疫情实时播报🅥</a
         >
-        <div class="subtitle">
+        <div v-if="isMobile" class="share-info">
+            <a class="share-link" href="http://2019ncov.tk" target="_blanket"
+                >2019nCoV.tk</a
+            >
             <strong>请广传！</strong>
+        </div>
+        <div class="subtitle">
+            <div v-if="!isMobile" class="share-info">
+                <a
+                    class="share-link"
+                    href="http://2019ncov.tk"
+                    target="_blanket"
+                    >网站：2019nCoV.tk</a
+                >
+                <strong>请广传！</strong>
+            </div>
             <a
                 href="https://github.com/thegreatjavascript/2019-nCoV-News"
                 target="_blanket"
@@ -39,6 +53,7 @@
 
 <script>
 import fetch from 'node-fetch';
+import { isMobile } from '../util.js';
 const moment = require('moment');
 
 export default {
@@ -50,6 +65,12 @@ export default {
             data: [],
             loading: true,
         };
+    },
+    computed: {
+        isMobile: function() {
+            console.log(isMobile());
+            return isMobile();
+        },
     },
     methods: {
         filterMessage(title) {
@@ -118,6 +139,14 @@ export default {
         margin-top: 2vw;
         margin-bottom: 3vw;
     }
+    .share-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a {
+            margin-right: 1vw;
+        }
+    }
     .subtitle {
         width: 100%;
         margin-bottom: 1vw;
@@ -154,6 +183,15 @@ export default {
         .title {
             font-size: 6vw;
             margin-top: 4vw;
+        }
+        .share-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2vw;
+            a {
+                margin-right: 2vw;
+            }
         }
         .subtitle {
             justify-content: center;
