@@ -27,7 +27,7 @@
             alt="loading"
         />
         <template v-else v-for="item in data">
-            <div class="card" v-if="item.title !== 'pinned'" :key="item.id">
+            <div class="card" v-if="filterMessage(item.title)" :key="item.id">
                 <div v-html="removeBR(item.content)"></div>
                 <p class="date">
                     {{ getTime(item.pubDate) }}
@@ -52,6 +52,9 @@ export default {
         };
     },
     methods: {
+        filterMessage(title) {
+            return !/^pinned/.test(title.trim());
+        },
         removeBR(html) {
             if (/<br><br>$/.test(html)) {
                 return html.replace(/<br><br>$/, '');
