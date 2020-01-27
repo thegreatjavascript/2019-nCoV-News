@@ -96,7 +96,7 @@ export default {
                 api = 'https://api2019ncovnews.herokuapp.com/api';
             }
             if (process.env.NODE_ENV !== 'production') {
-                api = 'http://localhost:9919/api';
+                api = 'http://localhost:9918/api';
             }
             fetch(api)
                 .then(res => {

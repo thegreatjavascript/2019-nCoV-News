@@ -22,6 +22,11 @@
   </noscript>
   <div id="app"></div>
   <!-- built files will be auto injected -->
+  <script>
+    if (/netlify\.com/.test(location.href)) {
+      location.href = 'http://2019ncov.tk';
+    }
+  </script>
 </body>
 
 </html>
