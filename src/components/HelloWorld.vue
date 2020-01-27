@@ -91,7 +91,7 @@ export default {
             alert('链接需要翻墙才能访问！');
         },
         getData() {
-            let api = 'http://107.174.221.109:9919/api';
+            let api = 'http://47.75.131.65:9918/api';
             if (/netlify\.com/.test(location.href)) {
                 api = 'https://api2019ncovnews.herokuapp.com/api';
             }
