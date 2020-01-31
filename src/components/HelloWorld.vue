@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <a class="title" :href="link" target="_blanket"
+        <a class="title" href="https://t.me/s/nCoV2019" target="_blanket"
             >2019-nCoV疫情实时播报🅥</a
         >
         <div v-if="isMobile" class="share-info">
@@ -34,47 +34,56 @@
                 >
             </p>
         </div>
+        <!-- <vue-markdown source='# 思考如何实现'></vue-markdown> -->
         <img
             class="loading"
             v-if="loading"
             src="~@/assets/loading.svg"
             alt="loading"
         />
-        <template v-else v-for="item in data">
-            <div class="card" v-if="filterMessage(item.title)" :key="item.id">
-                <div v-html="removeBR(item.content)"></div>
+        <template v-else v-for="item in messageList">
+            <div
+                class="card"
+                v-if="filterMessage(item.message)"
+                :key="item.id"
+                :index="item.index"
+                v-load-more
+            >
+                <vue-markdown
+                    :source="item.message"
+                    :anchorAttributes="{ target: '_blank' }"
+                ></vue-markdown>
                 <p class="date">
-                    {{ getTime(item.pubDate) }}
+                    {{ getTime(item.date) }}
                 </p>
             </div>
         </template>
+        <p class="loading-text">loading...</p>
     </div>
 </template>
 
 <script>
-import fetch from 'node-fetch';
-import { isMobile } from '../util.js';
+import VueMarkdown from 'vue-markdown';
+import { isMobile } from '@/utils/tool';
+import { mapState } from 'vuex';
 const moment = require('moment');
 
 export default {
     name: 'HelloWorld',
-    data() {
-        return {
-            title: '',
-            link: '',
-            data: [],
-            loading: true,
-        };
-    },
     computed: {
+        loading: function() {
+            return this.$store.state.loading;
+        },
+        messageList: function() {
+            return this.$store.state.messageList;
+        },
         isMobile: function() {
-            console.log(isMobile());
             return isMobile();
         },
     },
     methods: {
         filterMessage(title) {
-            return !/^pinned/.test(title.trim());
+            return title.trim() && !/^pinned/.test(title.trim());
         },
         removeBR(html) {
             if (/<br><br>$/.test(html)) {
@@ -91,23 +100,7 @@ export default {
             alert('链接需要翻墙才能访问！');
         },
         getData() {
-            let api = 'http://47.75.131.65:9918/api';
-            if (/netlify\.com/.test(location.href)) {
-                api = 'https://api2019ncovnews.herokuapp.com/api';
-            }
-            if (process.env.NODE_ENV !== 'production') {
-                api = 'http://localhost:9918/api';
-            }
-            fetch(api)
-                .then(res => {
-                    return res.json();
-                })
-                .then(res => {
-                    this.title = res.title;
-                    this.link = res.link;
-                    this.data = res.items;
-                    this.loading = false;
-                });
+            this.$store.dispatch('requestData');
         },
     },
     created() {
@@ -119,6 +112,9 @@ export default {
     },
     beforeDestroy() {
         clearInterval(this.timer);
+    },
+    components: {
+        VueMarkdown,
     },
 };
 </script>
@@ -168,14 +164,23 @@ export default {
         }
     }
     .card {
+        min-height: 100px;
         margin: 0.7vw 0;
         padding-bottom: 2vw;
         background: #ffffff;
         padding: 1vw;
         border-radius: 10px;
+        /deep/ h4 {
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
         .date {
             text-align: right;
         }
+    }
+    .loading-text {
+        text-align: center;
+        margin: 20px 0;
     }
 }
 
@@ -213,11 +218,15 @@ export default {
 <style>
 a {
     text-decoration: none;
-    color: #de335e;
+    color: var(--text-color);
 }
 
 .card img {
     width: 100%;
     display: block;
+}
+
+:root {
+    --text-color: #de335e;
 }
 </style>
