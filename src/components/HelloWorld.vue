@@ -108,7 +108,7 @@ export default {
         // call api every five minutes.
         this.timer = setInterval(() => {
             this.getData(true);
-        }, 3000);
+        }, 300000);
     },
     beforeDestroy() {
         clearInterval(this.timer);
