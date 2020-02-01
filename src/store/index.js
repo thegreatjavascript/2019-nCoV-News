@@ -27,10 +27,11 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        requestData(context) {
+        // 如果是自动刷新调用的接口，那么不传max_id
+        requestData(context, isAuto = false) {
             return request({
                 limit: context.state.limit,
-                max_id: context.state.max_id,
+                max_id: isAuto ? 0 : context.state.max_id,
             }).then(res => {
                 res = res.messages;
                 const temp = [];

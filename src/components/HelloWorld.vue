@@ -99,15 +99,15 @@ export default {
         onClick(e) {
             alert('链接需要翻墙才能访问！');
         },
-        getData() {
-            this.$store.dispatch('requestData');
+        getData(isAuto) {
+            this.$store.dispatch('requestData', isAuto);
         },
     },
     created() {
         this.getData();
         // call api every five minutes.
         this.timer = setInterval(() => {
-            this.getData();
+            this.getData(true);
         }, 300000);
     },
     beforeDestroy() {
