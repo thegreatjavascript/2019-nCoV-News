@@ -11,6 +11,7 @@ export default new Vuex.Store({
         currentLength: 10, // 当前接口返回的数据的长度，保存为了滚动加载数据用
         loading: true,
         messageList: [],
+        pinnedMessage: {},
     },
     mutations: {
         setMaxID(state, max_id) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
         setCurrentLength(state, length) {
             state.currentLength = length;
         },
+        setPinnedMessage(state, msg) {
+            state.pinnedMessage = msg;
+        },
     },
     actions: {
         // 如果是自动刷新调用的接口，那么不传max_id
@@ -37,6 +41,12 @@ export default new Vuex.Store({
                 limit: context.state.limit,
                 max_id: isAuto ? 0 : context.state.max_id,
             }).then(res => {
+                let pinnedMessage = res.pinned_message;
+                context.commit('setPinnedMessage', {
+                    message: pinnedMessage.message.replace(/^#/, '#### #'),
+                    date: pinnedMessage.edit_date,
+                });
+
                 res = res.messages;
                 const temp = [];
                 let index = 0;

@@ -34,29 +34,53 @@
                 >
             </p>
         </div>
-        <!-- <vue-markdown source='# 思考如何实现'></vue-markdown> -->
         <img
             class="loading"
             v-if="loading"
             src="~@/assets/loading.svg"
             alt="loading"
         />
-        <template v-else v-for="item in messageList">
-            <div
-                class="card"
-                v-if="filterMessage(item.message)"
-                :key="item.id"
-                :index="item.index"
-                v-load-more
-            >
+        <template v-else>
+            <div class="card pinned">
+                <img src="~@/assets/pin.png" alt="pinned message" />
                 <vue-markdown
-                    :source="item.message"
+                    class="content"
+                    :style="{
+                        height: isCollapse
+                            ? isMobile
+                                ? '145px'
+                                : '6vw'
+                            : 'auto',
+                    }"
+                    :source="pinnedMessage.message"
                     :anchorAttributes="{ target: '_blank' }"
                 ></vue-markdown>
-                <p class="date">
-                    {{ getTime(item.date) }}
-                </p>
+                <div class="attach">
+                    <p class="date">
+                        {{ getTime(pinnedMessage.date) }}
+                    </p>
+                    <button @click="collapseHandler">
+                        {{ isCollapse ? '展开' : '折叠' }}
+                    </button>
+                </div>
             </div>
+            <template v-for="item in messageList">
+                <div
+                    class="card"
+                    v-if="filterMessage(item.message)"
+                    :key="item.id"
+                    :index="item.index"
+                    v-load-more
+                >
+                    <vue-markdown
+                        :source="item.message"
+                        :anchorAttributes="{ target: '_blank' }"
+                    ></vue-markdown>
+                    <p class="date">
+                        {{ getTime(item.date) }}
+                    </p>
+                </div>
+            </template>
         </template>
         <p class="loading-text">loading...</p>
     </div>
@@ -70,6 +94,11 @@ const moment = require('moment');
 
 export default {
     name: 'HelloWorld',
+    data() {
+        return {
+            isCollapse: true,
+        };
+    },
     computed: {
         loading: function() {
             return this.$store.state.loading;
@@ -77,11 +106,17 @@ export default {
         messageList: function() {
             return this.$store.state.messageList;
         },
+        pinnedMessage: function() {
+            return this.$store.state.pinnedMessage;
+        },
         isMobile: function() {
             return isMobile();
         },
     },
     methods: {
+        collapseHandler() {
+            this.isCollapse = !this.isCollapse;
+        },
         filterMessage(title) {
             return title.trim() && !/^pinned/.test(title.trim());
         },
@@ -127,7 +162,7 @@ export default {
     color: #000000;
     font-size: 1.2vw;
     .loading {
-        margin-top: 10vw;
+        margin-top: 5vw;
         margin-left: calc(50% - 25px);
     }
     .title {
@@ -170,6 +205,38 @@ export default {
         background: #ffffff;
         padding: 1vw;
         border-radius: 10px;
+        &.pinned {
+            margin-bottom: 1.5vw;
+            min-height: 78px;
+            position: relative;
+            img {
+                color: var(--text-color);
+                position: absolute;
+                width: 17px;
+                right: 1vw;
+                top: 5px;
+                text-align: right;
+            }
+            .content {
+                height: 6vw;
+                overflow: hidden;
+            }
+            .attach {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                button {
+                    cursor: pointer;
+                    color: var(--text-color);
+                    outline: none;
+                    border: none;
+                    margin-left: 10px;
+                    background: inherit;
+                    font-size: inherit;
+                    line-height: 1;
+                }
+            }
+        }
         /deep/ h4 {
             margin-bottom: 10px;
             color: var(--text-color);
@@ -187,10 +254,10 @@ export default {
 @media (max-width: 768px) {
     .container {
         width: 90vw;
-        font-size: 4vw;
+        font-size: 5vw;
         .title {
             font-size: 6vw;
-            margin-top: 4vw;
+            margin-top: 5vw;
         }
         .share-info {
             display: flex;
@@ -207,6 +274,12 @@ export default {
         .card {
             padding: 3vw 5vw;
             margin: 3vw 0;
+            &.pinned {
+                min-height: 150px;
+                .content {
+                    height: 145px;
+                }
+            }
         }
         .loading {
             margin-top: 50vw;
