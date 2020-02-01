@@ -19,7 +19,11 @@ export default new Vuex.Store({
         changeLoading(state, status) {
             state.loading = status;
         },
-        setMessageList(state, list) {
+        setMessageList(state, { list, isAuto }) {
+            if (isAuto) {
+                state.messageList = list;
+                return;
+            }
             state.messageList.push(...list);
         },
         setCurrentLength(state, length) {
@@ -54,7 +58,10 @@ export default new Vuex.Store({
                 }
                 context.commit('setCurrentLength', temp.length);
                 context.commit('setMaxID', temp[temp.length - 1].id);
-                context.commit('setMessageList', temp);
+                context.commit('setMessageList', {
+                    list: temp,
+                    isAuto,
+                });
                 context.commit('changeLoading', false);
             });
         },

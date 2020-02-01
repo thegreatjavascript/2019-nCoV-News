@@ -19,7 +19,6 @@ export default class LoadMore {
                 entries.forEach(async ({ target, isIntersecting }) => {
                     if (isIntersecting) {
                         store.dispatch('requestData').then(() => {
-                            console.log('加载数据一次');
                             observer && observer.unobserve(target);
                         });
                     }
