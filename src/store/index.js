@@ -42,8 +42,15 @@ export default new Vuex.Store({
                 max_id: isAuto ? 0 : context.state.max_id,
             }).then(res => {
                 let pinnedMessage = res.pinned_message;
+
+                if (pinnedMessage.entities) {
+                    pinnedMessage.message = translateEntry(
+                        pinnedMessage.message,
+                        pinnedMessage.entities
+                    );
+                }
                 context.commit('setPinnedMessage', {
-                    message: pinnedMessage.message.replace(/^#/, '#### #'),
+                    message: pinnedMessage.message,
                     date: pinnedMessage.edit_date,
                 });
 

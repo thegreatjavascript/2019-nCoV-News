@@ -43,22 +43,19 @@
         <template v-else>
             <div class="card pinned">
                 <img src="~@/assets/pin.png" alt="pinned message" />
-                <vue-markdown
+                <div
                     class="content"
                     :style="{
                         height: isCollapse
                             ? isMobile
-                                ? '145px'
-                                : '6vw'
+                                ? '160px'
+                                : '6.5vw'
                             : 'auto',
                     }"
-                    :source="pinnedMessage.message"
-                    :anchorAttributes="{ target: '_blank' }"
-                ></vue-markdown>
+                    v-html="pinnedMessage.message"
+                ></div>
                 <div class="attach">
-                    <p class="date">
-                        {{ getTime(pinnedMessage.date) }}
-                    </p>
+                    <p class="date">{{ getTime(pinnedMessage.date) }}</p>
                     <button @click="collapseHandler">
                         {{ isCollapse ? '展开' : '折叠' }}
                     </button>
@@ -72,13 +69,8 @@
                     :index="item.index"
                     v-load-more
                 >
-                    <vue-markdown
-                        :source="item.message"
-                        :anchorAttributes="{ target: '_blank' }"
-                    ></vue-markdown>
-                    <p class="date">
-                        {{ getTime(item.date) }}
-                    </p>
+                    <div class="content" v-html="item.message"></div>
+                    <p class="date">{{ getTime(item.date) }}</p>
                 </div>
             </template>
         </template>
@@ -87,7 +79,6 @@
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown';
 import { isMobile } from '@/utils/tool';
 import { mapState } from 'vuex';
 const moment = require('moment');
@@ -154,9 +145,6 @@ export default {
     beforeDestroy() {
         clearInterval(this.timer);
     },
-    components: {
-        VueMarkdown,
-    },
 };
 </script>
 
@@ -210,7 +198,15 @@ export default {
         padding-bottom: 2vw;
         background: #ffffff;
         padding: 1vw;
+        padding-bottom: 0.5vw;
         border-radius: 10px;
+        /deep/ div.content {
+            white-space: pre-wrap;
+            .tag {
+                color: var(--text-color);
+                font-weight: bold;
+            }
+        }
         &.pinned {
             margin-bottom: 1.5vw;
             min-height: 78px;
@@ -224,7 +220,7 @@ export default {
                 text-align: right;
             }
             .content {
-                height: 6vw;
+                height: 6.5vw;
                 overflow: hidden;
             }
             .attach {
@@ -281,9 +277,8 @@ export default {
             padding: 3vw 5vw;
             margin: 3vw 0;
             &.pinned {
-                min-height: 150px;
                 .content {
-                    height: 145px;
+                    height: 160px;
                 }
             }
         }
