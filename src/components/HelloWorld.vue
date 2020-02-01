@@ -115,6 +115,12 @@ export default {
     },
     methods: {
         collapseHandler() {
+            if (!this.isCollapse) {
+                window.scrollTo({
+                    behavior: 'smooth',
+                    top: 0,
+                });
+            }
             this.isCollapse = !this.isCollapse;
         },
         filterMessage(title) {
