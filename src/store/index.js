@@ -51,7 +51,7 @@ export default new Vuex.Store({
                 }
                 context.commit('setPinnedMessage', {
                     message: pinnedMessage.message,
-                    date: pinnedMessage.edit_date,
+                    date: pinnedMessage.edit_date || pinnedMessage.date,
                 });
 
                 res = res.messages;
