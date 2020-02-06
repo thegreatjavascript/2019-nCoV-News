@@ -6,6 +6,8 @@
 
 <br/>
 
+> 后端接口代码在[这里](https://github.com/QuantumGhost/ncov-channel-crawler)（由 [@QuantumGhost](https://github.com/QuantumGhost) 提供，感谢他的贡献。）
+
 电报上的那个频道是我知道的汇总国内官方渠道的疫情数据，做得最好的。我有天天看。（当然我也知道官方消息只有基本参考价值）。
 
 但我这两天在安利这个频道时犯了难，因为我得先让朋友下载个 Telegram，还得教他翻墙......
@@ -31,7 +33,7 @@
 
 #### 部署到其他地方
 
-> 项目前后端分离，本仓库仅包含前端部分，后端代码在[这里](https://github.com/QuantumGhost/ncov-channel-crawler)（由 [@QuantumGhost](https://github.com/QuantumGhost) 提供，感谢他的贡献。）
+> 项目前后端分离，本仓库仅包含前端部分。
 
 **前端部分部署**
 
