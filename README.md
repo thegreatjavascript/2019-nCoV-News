@@ -69,10 +69,9 @@ git clone git@github.com:QuantumGhost/ncov-channel-crawler.git
 # 2. 命令行下进入到项目文件夹
 cd ncov-channel-crawler
 
-# 3. 我也不会部署Python项目 #需要朋友们补充
-...
+# 3. 请移步 https://github.com/QuantumGhost/ncov-channel-crawler#ncov-news-crawler
 
-# 4. 部署完Python项目后，需要手动修改下前端 `request.js` 中的`api`地址
+# 4. 部署完Python项目后，需要回过头来修改下前端 `request.js` 中的`api`地址为后端监听的路由地址
 
 # 5. 重新打包前端项目，生成最新的资源文件
 cd 2019-nCoV-News
