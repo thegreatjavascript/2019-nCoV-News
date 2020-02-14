@@ -4,8 +4,8 @@
             >2019-nCoV疫情实时播报🅥</a
         >
         <div v-if="isMobile" class="share-info">
-            <a class="share-link" href="http://2019ncov.tk" target="_blanket"
-                >2019nCoV.tk</a
+            <a class="share-link" href="https://2019ncov.ga" target="_blanket"
+                >2019nCoV.ga</a
             >
             <strong>请广传！</strong>
         </div>
@@ -13,9 +13,9 @@
             <div v-if="!isMobile" class="share-info">
                 <a
                     class="share-link"
-                    href="http://2019ncov.tk"
+                    href="https://2019ncov.ga"
                     target="_blanket"
-                    >网站：2019nCoV.tk</a
+                    >网站：2019nCoV.ga</a
                 >
                 <strong>请广传！</strong>
             </div>
