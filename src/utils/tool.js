@@ -37,24 +37,5 @@ export const translateEntry = (text, entities) => {
 
         text = text.replace(reg, replacement);
     });
-    console.log('--> ', text);
-
-    // const { offset, length, url } = entities[entities.length - 1];
-    // let newStr = '';
-    // for (let i in text) {
-    //     i = Number(i);
-    //     if (i === undefined) continue;
-
-    //     if (i === offset) {
-    //         newStr += '[';
-    //     }
-
-    //     newStr += text[i];
-
-    //     if (i === offset + length - 1) {
-    //         newStr += `](${url})`;
-    //     }
-    // }
-    console.log(/↵/.test(text));
     return text;
 };

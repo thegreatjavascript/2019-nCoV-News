@@ -8,7 +8,6 @@ export default new Vuex.Store({
     state: {
         limit: 10,
         max_id: 0,
-        currentLength: 10, // 当前接口返回的数据的长度，保存为了滚动加载数据用
         loading: true,
         messageList: [],
         pinnedMessage: {},
@@ -26,9 +25,6 @@ export default new Vuex.Store({
                 return;
             }
             state.messageList.push(...list);
-        },
-        setCurrentLength(state, length) {
-            state.currentLength = length;
         },
         setPinnedMessage(state, msg) {
             state.pinnedMessage = msg;
@@ -73,7 +69,6 @@ export default new Vuex.Store({
                         temp.push(item);
                     }
                 }
-                context.commit('setCurrentLength', temp.length);
                 context.commit('setMaxID', temp[temp.length - 1].id);
                 context.commit('setMessageList', {
                     list: temp,

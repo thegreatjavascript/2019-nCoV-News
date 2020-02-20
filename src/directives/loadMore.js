@@ -6,8 +6,10 @@ const loadMore = new LoadMore();
 
 Vue.directive('load-more', {
     bind(el) {
+        // 每次只是数据列表的最后一个item绑定滚动加载事件
         if (
-            el.getAttribute('index') === String(store.state.currentLength - 1)
+            el.getAttribute('index') ===
+            String(store.state.messageList.length - 2)
         ) {
             loadMore.add(el);
         }

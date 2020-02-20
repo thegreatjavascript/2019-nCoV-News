@@ -61,12 +61,12 @@
                     </button>
                 </div>
             </div>
-            <template v-for="item in messageList">
+            <template v-for="(item,index) in messageList">
                 <div
                     class="card"
                     v-if="filterMessage(item.message)"
                     :key="item.id"
-                    :index="item.index"
+                    :index="index"
                     v-load-more
                 >
                     <div class="content" v-html="item.message"></div>
