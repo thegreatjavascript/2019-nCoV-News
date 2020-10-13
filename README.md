@@ -1,17 +1,12 @@
 # 2019-nCoV疫情实时播报🅥｜墙内传播版
 
-<br/>
-
-**传播📣链接**：https://2019ncov.ga
-
-<br/>
 
 > 后端接口代码在[这里](https://github.com/QuantumGhost/ncov-channel-crawler)（由 [@QuantumGhost](https://github.com/QuantumGhost) 提供，感谢他的贡献。）
 
 电报上的那个频道是我知道的汇总国内官方渠道的疫情数据，做得最好的。我有天天看。（当然我也知道官方消息只有基本参考价值）。
 
 但我这两天在安利这个频道时犯了难，因为我得先让朋友下载个 Telegram，还得教他翻墙......
-考虑到这个难题，我连夜写了这个网页：**[https://2019ncov.ga](https://2019ncov.ga)** 
+考虑到这个难题，我连夜写了这个网页：**[https://2019ncov.ga](https://2019ncov.ga)** ）（已下线）
 
 在**国内可以直接访问查看频道更新的消息。**
 
